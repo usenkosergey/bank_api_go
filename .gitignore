@@ -1,20 +1,43 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+*.test
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+.out
+coverage.
+*.cov
+
+/bin/
+/build/
+/dist/
+.cache/
+.gocache/
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+AppleDouble
+.LSOverride
+._*/
+
+/.idea/
+/idea/
+/.idea/httpRequests/
+httpRequests/
+
+.env
+.env.*.local
+.secret
+secrets/
+*.key
+*.pem
+
+vendor/
+Logs and temp
+*.log
+*.tmp
+
 *.iml
-*.ipr
