@@ -5,21 +5,27 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
-    <changeSet id="1" author="your_name">
-        <createTable tableName="users">
+    <changeSet id="1" author="prokopenko">
+        <createTable tableName="cards">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="username" type="VARCHAR(50)">
+            <column name="full_number" type="VARCHAR(25)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="email" type="VARCHAR(100)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="hidden_number" type="VARCHAR(25)">
                 <constraints nullable="false"/>
             </column>
+            <column name="owner" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="validity_period" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="BIGINT" defaultValue="0" />
         </createTable>
     </changeSet>
-
 </databaseChangeLog>

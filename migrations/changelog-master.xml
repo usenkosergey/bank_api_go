@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
-    <include file="changelog/001-initial-schema.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/001-initial-card-table.xml" relativeToChangelogFile="true"/>
 <!--    <include file="changelog/002-add-data.xml" relativeToChangelogFile="true"/>-->
 
 </databaseChangeLog>
