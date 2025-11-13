@@ -1,20 +1,13 @@
-package main
+package models
 
 import "time"
 
 type Card struct {
+	id             int64
 	numberFull     string
 	numberHidden   string
-	owner          string
+	owner          Person
 	validityPeriod time.Time
 	status         Status
 	balance        int64
 }
-
-type Status int
-
-const (
-	Active Status = iota
-	Blocked
-	Expired
-)

@@ -1,9 +1,13 @@
-package main
+package controllers
 
 import (
 	"fmt"
 	"net/http"
 )
+
+func addUser() {
+
+}
 
 func getCards() {
 
@@ -13,7 +17,11 @@ func getCard() {
 
 }
 
-func handleRequest(w http.ResponseWriter, r *http.Request) {
+func addCard() {
+
+}
+
+func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	// В зависимости от метода HTTP-запроса вызываем соответствующий обработчик
 	switch r.Method {
 	case http.MethodGet:
@@ -42,6 +50,10 @@ func handleGET(w http.ResponseWriter, r *http.Request) {
 
 // Обработчик для POST-запросов
 func handlePOST(w http.ResponseWriter, r *http.Request) {
+	switch r.URL.Path {
+	case "/person":
+		fmt.Print(r.Body)
+	}
 	fmt.Fprintln(w, "Это POST-запрос!")
 }
 
