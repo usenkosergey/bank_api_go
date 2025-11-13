@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  liquibase:
+    image: liquibase/liquibase:latest
+    container_name: liquibase-postgres
+    volumes:
+      - ./migrations:/liquibase/changelog
+      - ./migrations/lib:/liquibase/lib
+    working_dir: /liquibase/changelog
+    command:
+      - --changelog-file=changelog-master.xml
+      - --defaultsFile=/liquibase/changelog/liquibase.properties
+      - --url=jdbc:postgresql://host.docker.internal:5432/bank
+      - update

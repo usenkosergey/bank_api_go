@@ -41,3 +41,5 @@ Logs and temp
 *.tmp
 
 *.iml
+
+*.properties

@@ -7,12 +7,14 @@ type Card struct {
 	numberHidden   string
 	owner          string
 	validityPeriod time.Time
-	status         string
-	balance
+	status         Status
+	balance        int64
 }
 
+type Status int
+
 const (
-	Active = iota
+	Active Status = iota
 	Blocked
 	Expired
 )
