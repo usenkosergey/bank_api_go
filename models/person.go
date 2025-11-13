@@ -1,7 +1,7 @@
 package models
 
 type Person struct {
-	id       int64
-	fullName string
-	role     Role
+	Id       int64  `json:"id"`
+	FullName string `json:"fullName"`
+	Role     Role   `json:"role"`
 }

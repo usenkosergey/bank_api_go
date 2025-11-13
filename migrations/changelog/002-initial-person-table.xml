@@ -13,7 +13,7 @@
             <column name="full_name" type="VARCHAR(200)">
                 <constraints nullable="false"/>
             </column>
-            <column name="role" type="INT">
+            <column name="role" type="INT" defaultValue="0">
                 <constraints nullable="false"/>
             </column>
         </createTable>
