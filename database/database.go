@@ -8,7 +8,6 @@ import (
 
 	_ "github.com/jackc/pgx/v4/stdlib"
 	env "github.com/joho/godotenv"
-	_ "github.com/lib/pq"
 )
 
 func DbConnect() *sql.DB {
@@ -16,14 +15,13 @@ func DbConnect() *sql.DB {
 	// Подключение к базе
 	db, err := sql.Open("pgx", psqlInfo)
 	if err != nil {
-		log.Fatal("-----", err)
+		log.Fatal(err)
 	}
-	//defer db.Close()
 
 	// Проверка подключения
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("!!!!!!!!", err)
+		log.Fatal(err)
 	}
 	fmt.Println("Successfully connected to PostgreSQL!")
 
