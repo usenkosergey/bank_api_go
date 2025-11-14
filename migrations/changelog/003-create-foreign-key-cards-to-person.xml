@@ -8,7 +8,7 @@
     <changeSet id="3" author="prokopenko">
         <addForeignKeyConstraint
                 baseTableName="cards"
-                baseColumnNames="person_id"
+                baseColumnNames="owner_id"
                 constraintName="fk_cards_person"
                 referencedTableName="persons"
                 referencedColumnNames="id"

@@ -1,9 +1,30 @@
 package controllers
 
 import (
+	"bank_api_go/services"
 	"fmt"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
+
+func CreateRouter() *mux.Router {
+	router := mux.NewRouter()
+
+	//r.HandleFunc("/users", getUsers).Methods("GET")
+	router.HandleFunc("/person", services.CreatePerson).Methods("POST")
+	//r.HandleFunc("/users/{id}", getUser).Methods("GET")
+	//r.HandleFunc("/users/{id}", updateUser).Methods("PUT")
+	//r.HandleFunc("/users/{id}", deleteUser).Methods("DELETE")
+
+	router.HandleFunc("/cards", services.GetCards).Methods("GET")
+	router.HandleFunc("/card", services.CreateCard).Methods("POST")
+	//r.HandleFunc("/users/{id}", getUser).Methods("GET")
+	//r.HandleFunc("/users/{id}", updateUser).Methods("PUT")
+	//r.HandleFunc("/users/{id}", deleteUser).Methods("DELETE")
+
+	return router
+}
 
 func addUser() {
 
