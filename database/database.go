@@ -5,27 +5,43 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
+	"time"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
 	env "github.com/joho/godotenv"
 )
 
-func DbConnect() *sql.DB {
+var (
+	once     sync.Once
+	instance *sql.DB
+	initErr  error
+)
+
+func DbConnect() {
 	psqlInfo := getConnectString()
 	// Подключение к базе
 	db, err := sql.Open("pgx", psqlInfo)
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	// Настроим пул (опционально)
+	db.SetMaxOpenConns(10)
+	db.SetMaxIdleConns(5)
+	db.SetConnMaxLifetime(30 * time.Minute)
 	// Проверка подключения
 	err = db.Ping()
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Successfully connected to PostgreSQL!")
+	instance = db
+}
 
-	return db
+// GetDB возвращает синглтон пула *sql.DB
+func GetDB() (*sql.DB, error) {
+	once.Do(DbConnect)
+	return instance, initErr
 }
 
 // Получение строки для подключения к БД

@@ -4,7 +4,6 @@ import (
 	"bank_api_go/database"
 	"bank_api_go/models"
 	"encoding/json"
-	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -20,8 +19,7 @@ func CreateCard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer r.Body.Close()
-	db := database.DbConnect()
-	defer db.Close()
+	db, _ := database.GetDB()
 
 	card.NumberFull = generateCardNumber()
 	card.ValidityPeriod = time.Now().AddDate(3, 0, 0)
@@ -32,10 +30,11 @@ func CreateCard(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetCards(w http.ResponseWriter, r *http.Request) {
-	query := `SELECT * FROM cards`
+	query := `SELECT CA.id, CA.full_number, PP.full_name, CA.validity_period, CA.balance
+				FROM cards CA
+				LEFT JOIN persons PP ON PP.id = CA.owner_id `
 
-	db := database.DbConnect()
-	defer db.Close()
+	db, _ := database.GetDB()
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Fatal(err)
@@ -45,20 +44,19 @@ func GetCards(w http.ResponseWriter, r *http.Request) {
 	var cards []models.Card
 	for rows.Next() {
 		var card models.Card
-		fmt.Print(card)
-		err := rows.Scan(
-			&card.Id, &card.NumberFull, &card.NumberHidden, &card.OwnerFullName, &card.ValidityPeriod, &card.Balance,
-		)
+		err := rows.Scan(&card.Id, &card.NumberFull, &card.OwnerFullName, &card.ValidityPeriod, &card.Balance)
 		if err != nil {
 			log.Fatal(err)
 		}
-		//card = append(cards, card)
+		cards = append(cards, card)
 	}
+	writeJSON(w, http.StatusOK, cards)
+}
 
-	fmt.Printf("Total users: %d\n", len(cards))
-	//for _, card := range cards {
-	//	fmt.Printf(" - %s (%s)\n", card.Name, card.Email)
-	//}
+func writeJSON(w http.ResponseWriter, code int, v interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	_ = json.NewEncoder(w).Encode(v)
 }
 
 func generateCardNumber() string {

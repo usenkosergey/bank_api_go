@@ -15,8 +15,7 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer r.Body.Close()
-	db := database.DbConnect()
-	defer db.Close()
+	db, _ := database.GetDB()
 
 	_, _ = db.Exec(
 		`INSERT INTO persons(full_name) VALUES ($1)`, &person.FullName)

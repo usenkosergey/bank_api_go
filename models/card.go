@@ -10,5 +10,5 @@ type Card struct {
 	OwnerFullName  string    `json:"ownerFullName"`
 	ValidityPeriod time.Time `json:"validityPeriod"`
 	Status         Status    `json:"status"`
-	Balance        int64     `json:"balance"`
+	Balance        float32   `json:"balance"`
 }
