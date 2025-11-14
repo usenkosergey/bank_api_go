@@ -20,6 +20,6 @@ func main() {
 
 	fmt.Println("------")
 
-	log.Println("Server starting on :9090")
-	log.Fatal(http.ListenAndServe(":9090", router))
+	log.Println("Server starting on :9099")
+	log.Fatal(http.ListenAndServe(":9099", router))
 }
